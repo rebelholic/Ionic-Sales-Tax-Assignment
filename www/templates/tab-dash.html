@@ -1,0 +1,75 @@
+<ion-view view-title="Cart">
+    <ion-content class="padding">
+         <div class="list list-inset">
+<h2 class="title">Choose Your Product</h2>
+       <div class="list card product" ng-repeat="product in itemvar" ng-click="intoCart({{product}})">
+            <div class="item item-text-wrap">
+                <h3>name: {{product.name}}</h3>
+                 <h3>Taxation: {{product.tax | percentage}}</h3>
+                <h3>Price:  {{product.price | currency:"$":2}}</h3>
+            </div>
+        </div>
+</br>
+<div class="button-bar" >
+      <a style="margin-right:10px"  class="button button-assertive" ng-click="intoCart({{product}})">
+        SUBMIT</a> 
+    </div> 
+</div> 
+        <div ng-if="cartItems.length">
+            <div class="list card" ng-repeat="product in cartItems" ng-init="getTotal(product)">
+                <div class="item item-icon-right">
+                    <h2>{{product.name}}</h2>
+                    <i class="icon ion-trash-a" ng-click="deleteProduct($index)"></i>
+                </div>
+                <div class="list">
+                    <label class="item item-divider">
+                        <div class="input-label alignleft">
+                            price
+                        </div>
+                        <div class="input-label alignright">
+                            {{product.price | currency:"$":2}}
+                        </div>
+                        <div style="clear: both;"></div>
+                    </label>
+                    <a class="item item-icon-left item-icon-right" href="#">
+                        <i class="icon ion-plus-circled" ng-click="addQuantity(product)"></i> Jumlah {{product.quantity}}
+                        <i class="icon ion-minus-circled" ng-click="subtractQuantity(product)"></i>
+                    </a>
+                    <label class="item item-divider">
+                        <div class="input-label alignleft">
+                            Total
+                        </div>
+                        <div class="input-label alignright">
+                            {{product.total | currency:"$":2}}
+                        </div>
+                        <div style="clear: both;"></div>
+                    </label>
+                </div>
+            </div>
+            <!-- Grand Total -->
+            <div class="list card">
+                <div class="list">
+                    <label class="item">
+                        <div class="input-label alignleft assertive">
+                            VAT
+                        </div>
+                        <div class="input-label alignright assertive">
+                            {{grand.tax | currency:"$":2}}
+                        </div>
+                        <div class="input-label alignleft assertive">
+                            GRAND TOTAL
+                        </div>
+                        <div class="input-label alignright assertive">
+                            {{grand.Total | currency:"$":2}}
+                        </div>
+                        <div style="clear: both;"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!cartItems.length">
+            <h1>Empty List!</h1>
+            <p>Please add first item from the list</p>
+        </div>
+    </ion-content>
+</ion-view>
